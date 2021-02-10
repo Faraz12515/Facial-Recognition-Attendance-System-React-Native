@@ -21,7 +21,7 @@ export default function Login({navigation}) {
   }, 1000);
 
   setTimeout(() => {
-    isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Signup'));
+    isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Home'));
   }, 1000);
 
   return isLoading == true ? (
@@ -77,11 +77,11 @@ export default function Login({navigation}) {
             )}
           </TouchableOpacity>
         </View>
-        <View>
+        {/* <View>
           <TouchableOpacity>
             <Text style={styles.ForgotButtonText}>Forgot Password?</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
