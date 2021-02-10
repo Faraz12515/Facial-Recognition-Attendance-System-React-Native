@@ -14,8 +14,7 @@ export default function SignUp({navigation}) {
   const [isLoading, setisLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -54,21 +53,13 @@ export default function SignUp({navigation}) {
           <View>
             <TextInput
               style={styles.textInput}
-              placeholder="First Name"
+              placeholder="Full Name"
               placeholderTextColor="#999"
-              onChangeText={(text) => setFirstName(text)}
-              value={firstName}
+              onChangeText={(text) => setFullName(text)}
+              value={fullName}
             />
           </View>
-          <View>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Last Name"
-              placeholderTextColor="#999"
-              onChangeText={(text) => setLastName(text)}
-              value={lastName}
-            />
-          </View>
+
           <View>
             <TextInput
               style={styles.textInput}
