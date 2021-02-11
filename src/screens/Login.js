@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import {LOGIN} from './../Constants/Global';
+import AddClass from './AddClass';
 
 export default function Login({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -87,7 +88,9 @@ export default function Login({navigation}) {
         </View>
 
         <View style={{paddingTop: 20}}>
-          <TouchableOpacity style={styles.Button} onPress={SIGNIN}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => navigation.navigate('Addclass')}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
@@ -96,13 +99,13 @@ export default function Login({navigation}) {
           </TouchableOpacity>
         </View>
 
-        <View style={{paddingTop: 20}}>
+        {/* <View style={{paddingTop: 20}}>
           <TouchableOpacity
             style={styles.signup}
             onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.ButtonText}>SignUp</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );
