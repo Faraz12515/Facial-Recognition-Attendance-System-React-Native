@@ -38,9 +38,9 @@ export default function Course({navigation}) {
           alignSelf: 'center',
           width: '100%',
         }}>
-        {btns.map((v) => {
+        {btns.map((v, i) => {
           return (
-            <TouchableOpacity style={styles.Button} onPress={v.nav}>
+            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
               <Text style={styles.ButtonText}>{v.title}</Text>
             </TouchableOpacity>
           );
