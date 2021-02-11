@@ -3,6 +3,8 @@ import {createStackNavigator} from '@react-navigation/stack';
 
 import {
   Home,
+  AddClass,
+  ClassList,
   Attendance,
   SignUp,
   Login,
@@ -32,9 +34,11 @@ const Stack = createStackNavigator();
 
 export default function stackNavigator() {
   return (
-    <Stack.Navigator headerMode="none" initialRouteName={'Login'}>
+    <Stack.Navigator headerMode="none" initialRouteName={'Home'}>
       <Stack.Screen name="GetStarted" component={GetStarted} />
       <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="Addclass" component={AddClass} />
+      <Stack.Screen name="Classlist" component={ClassList} />
       <Stack.Screen name="Attendance" component={Attendance} />
       <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />

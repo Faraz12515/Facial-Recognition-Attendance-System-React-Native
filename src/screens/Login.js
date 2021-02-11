@@ -15,7 +15,11 @@ import {
 import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
+<<<<<<< HEAD
 import * as Actions from './../REDUX/Action/Actions';
+=======
+import AddClass from './AddClass';
+>>>>>>> 5cc0a9a0ad3d0968c4130434de7ad06706359f13
 
 function Login({navigation, loginuser}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -106,7 +110,9 @@ function Login({navigation, loginuser}) {
         </View>
 
         <View style={{paddingTop: 20}}>
-          <TouchableOpacity style={styles.Button} onPress={SIGNIN}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => navigation.navigate('Addclass')}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
@@ -115,13 +121,13 @@ function Login({navigation, loginuser}) {
           </TouchableOpacity>
         </View>
 
-        <View style={{paddingTop: 20}}>
+        {/* <View style={{paddingTop: 20}}>
           <TouchableOpacity
             style={styles.signup}
             onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.ButtonText}>SignUp</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
       </ScrollView>
     </View>
   );

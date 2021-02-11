@@ -22,9 +22,13 @@ import SignUp from './SignUp';
 import Login from './Login';
 import Attendance from './Attendance';
 import Home from './Home';
+import AddClass from './AddClass';
+import ClassList from './ClassList';
 
 export {
   Home,
+  AddClass,
+  ClassList,
   Attendance,
   SignUp,
   Login,
