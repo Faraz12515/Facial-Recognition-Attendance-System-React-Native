@@ -23,7 +23,6 @@ export default function Login({navigation}) {
     setIsLoading(false);
   }, 1000);
 
-<<<<<<< HEAD
   // setTimeout(() => {
   //   isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Signup'));
   // }, 1000);
@@ -43,11 +42,6 @@ export default function Login({navigation}) {
       })
       .catch((err) => console.log(err));
   };
-=======
-  setTimeout(() => {
-    isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Home'));
-  }, 1000);
->>>>>>> 7b8fccc07064b2427b6e0f104a655926784aaeca
 
   return isLoading == true ? (
     <ActivityIndicator
@@ -101,20 +95,14 @@ export default function Login({navigation}) {
             )}
           </TouchableOpacity>
         </View>
-<<<<<<< HEAD
 
         <View style={{paddingTop: 20}}>
           <TouchableOpacity
             style={styles.signup}
             onPress={() => navigation.navigate('Signup')}>
             <Text style={styles.ButtonText}>SignUp</Text>
-=======
-        {/* <View>
-          <TouchableOpacity>
-            <Text style={styles.ForgotButtonText}>Forgot Password?</Text>
->>>>>>> 7b8fccc07064b2427b6e0f104a655926784aaeca
           </TouchableOpacity>
-        </View> */}
+        </View>
       </ScrollView>
     </View>
   );
