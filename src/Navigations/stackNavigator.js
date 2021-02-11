@@ -2,6 +2,7 @@ import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
 import {
+  Home,
   Attendance,
   SignUp,
   Login,
@@ -33,6 +34,7 @@ export default function stackNavigator() {
   return (
     <Stack.Navigator headerMode="none" initialRouteName={'Login'}>
       <Stack.Screen name="GetStarted" component={GetStarted} />
+      <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Attendance" component={Attendance} />
       <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
