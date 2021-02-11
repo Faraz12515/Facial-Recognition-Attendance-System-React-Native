@@ -32,7 +32,7 @@ const Stack = createStackNavigator();
 
 export default function stackNavigator() {
   return (
-    <Stack.Navigator headerMode="none" initialRouteName={GetStarted}>
+    <Stack.Navigator headerMode="none" initialRouteName={'Login'}>
       <Stack.Screen name="GetStarted" component={GetStarted} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Attendance" component={Attendance} />

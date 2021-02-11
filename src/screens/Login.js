@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -10,6 +11,8 @@ import {
   ActivityIndicator,
 } from 'react-native';
 
+import {LOGIN} from './../Constants/Global';
+
 export default function Login({navigation}) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,9 +23,25 @@ export default function Login({navigation}) {
     setIsLoading(false);
   }, 1000);
 
-  setTimeout(() => {
-    isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Home'));
-  }, 1000);
+  // setTimeout(() => {
+  //   isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Signup'));
+  // }, 1000);
+
+  const SIGNIN = async () => {
+    let fd = new FormData();
+    fd.append('email', userName);
+    fd.append('password', password);
+
+    axios
+      .post(LOGIN, fd)
+      .then((res) => {
+        console.log(res.data);
+        let myString = res.data.user_data;
+        myString = JSON.parse(myString.replace(/'/g, '"'));
+        console.log(myString);
+      })
+      .catch((err) => console.log(err));
+  };
 
   return isLoading == true ? (
     <ActivityIndicator
@@ -60,6 +79,7 @@ export default function Login({navigation}) {
               style={styles.textInput}
               placeholder="Password"
               placeholderTextColor="#999"
+              secureTextEntry={true}
               onChangeText={(text) => setPassword(text)}
               value={password}
             />
@@ -67,9 +87,7 @@ export default function Login({navigation}) {
         </View>
 
         <View style={{paddingTop: 20}}>
-          <TouchableOpacity
-            style={styles.Button}
-            onPress={() => setIsLoggedIn(true)}>
+          <TouchableOpacity style={styles.Button} onPress={SIGNIN}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
@@ -77,11 +95,14 @@ export default function Login({navigation}) {
             )}
           </TouchableOpacity>
         </View>
-        {/* <View>
-          <TouchableOpacity>
-            <Text style={styles.ForgotButtonText}>Forgot Password?</Text>
+
+        <View style={{paddingTop: 20}}>
+          <TouchableOpacity
+            style={styles.signup}
+            onPress={() => navigation.navigate('Signup')}>
+            <Text style={styles.ButtonText}>SignUp</Text>
           </TouchableOpacity>
-        </View> */}
+        </View>
       </ScrollView>
     </View>
   );
@@ -112,6 +133,15 @@ const styles = StyleSheet.create({
     padding: 11,
     marginTop: 30,
     marginVertical: '3%',
+    alignItems: 'center',
+    alignSelf: 'center',
+    width: '90%',
+    elevation: 5,
+    borderRadius: 4,
+  },
+  signup: {
+    backgroundColor: '#00a14e',
+    padding: 11,
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',

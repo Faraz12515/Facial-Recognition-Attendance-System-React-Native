@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState} from 'react';
 import {
   StyleSheet,
@@ -9,13 +10,13 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
+import {SIGN_UP} from '../Constants/Global';
 
 export default function SignUp({navigation}) {
   const [isLoading, setisLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
+  const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -23,9 +24,24 @@ export default function SignUp({navigation}) {
     setisLoading(false);
   }, 1000);
 
-  setTimeout(() => {
-    isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Login'));
-  }, 1000);
+  const SignUp = async () => {
+    const fd = new FormData();
+    fd.append('name', fullName);
+    fd.append('email', email);
+    fd.append('password', password);
+
+    axios
+      .post(SIGN_UP, fd)
+      .then((res) => {
+        console.log(res.data);
+        navigation.navigate('Login');
+      })
+      .catch((err) => console.log(err));
+  };
+
+  // setTimeout(() => {
+  //   isLoggedIn == true && (setIsLoggedIn(false), navigation.navigate('Login'));
+  // }, 1000);
 
   return isLoading == true ? (
     <ActivityIndicator
@@ -54,21 +70,13 @@ export default function SignUp({navigation}) {
           <View>
             <TextInput
               style={styles.textInput}
-              placeholder="First Name"
+              placeholder="Full Name"
               placeholderTextColor="#999"
-              onChangeText={(text) => setFirstName(text)}
-              value={firstName}
+              onChangeText={(text) => setFullName(text)}
+              value={fullName}
             />
           </View>
-          <View>
-            <TextInput
-              style={styles.textInput}
-              placeholder="Last Name"
-              placeholderTextColor="#999"
-              onChangeText={(text) => setLastName(text)}
-              value={lastName}
-            />
-          </View>
+
           <View>
             <TextInput
               style={styles.textInput}
@@ -89,9 +97,7 @@ export default function SignUp({navigation}) {
           </View>
         </View>
         <View style={{paddingTop: 15}}>
-          <TouchableOpacity
-            style={styles.Button}
-            onPress={() => setIsLoggedIn(true)}>
+          <TouchableOpacity style={styles.Button} onPress={SignUp()}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
