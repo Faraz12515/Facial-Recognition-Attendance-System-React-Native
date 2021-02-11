@@ -19,7 +19,9 @@ export default function AddClass({navigation}) {
           style={{
             textAlign: 'center',
             fontSize: 22,
-            color: '#222',
+
+            color: '#fff',
+            backgroundColor: '#00a14e',
             fontWeight: 'bold',
             paddingVertical: '8%',
           }}>
