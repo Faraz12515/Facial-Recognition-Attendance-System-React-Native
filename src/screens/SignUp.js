@@ -9,6 +9,7 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {SIGN_UP} from '../Constants/Global';
 
@@ -25,18 +26,35 @@ export default function SignUp({navigation}) {
   }, 1000);
 
   const SignUp = async () => {
+    if (!fullName || !email || !password) {
+      Alert.alert('Alert!', 'Please Enter All the Fields Properly', [
+        {text: 'OK'},
+      ]);
+      return;
+    }
+
+    setIsLoggedIn(true);
+
     const fd = new FormData();
     fd.append('name', fullName);
     fd.append('email', email);
     fd.append('password', password);
 
+    console.log('formdata:', fd);
+
     axios
       .post(SIGN_UP, fd)
       .then((res) => {
+        setIsLoggedIn(false);
         console.log(res.data);
-        navigation.navigate('Login');
+        Alert.alert('Success', 'Your account has been Created', [
+          {text: 'Ok', onPress: () => navigation.navigate('Login')},
+        ]);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsLoggedIn(false);
+        Alert.alert('Error!', 'Something Went Wrong', [{text: 'OK'}]);
+      });
   };
 
   // setTimeout(() => {
@@ -80,7 +98,7 @@ export default function SignUp({navigation}) {
           <View>
             <TextInput
               style={styles.textInput}
-              placeholder="Email or Phone"
+              placeholder="Email Address"
               placeholderTextColor="#999"
               onChangeText={(text) => setEmail(text)}
               value={email}
@@ -92,16 +110,17 @@ export default function SignUp({navigation}) {
               placeholder="Password"
               placeholderTextColor="#999"
               onChangeText={(text) => setPassword(text)}
+              secureTextEntry={true}
               value={password}
             />
           </View>
         </View>
         <View style={{paddingTop: 15}}>
-          <TouchableOpacity style={styles.Button} onPress={SignUp()}>
+          <TouchableOpacity style={styles.Button} onPress={SignUp}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (
-              <Text style={styles.ButtonText}>Sign Up</Text>
+              <Text style={styles.ButtonText}>Register</Text>
             )}
           </TouchableOpacity>
         </View>
@@ -129,12 +148,14 @@ const styles = StyleSheet.create({
   Button: {
     backgroundColor: '#00a14e',
     padding: 11,
-    marginVertical: '6%',
+    marginVertical: '1%',
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
     elevation: 5,
-    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 25,
   },
   ImageView: {width: '100%', height: '36%'},
   ImageStyle: {width: '70%', height: '100%', alignSelf: 'center'},

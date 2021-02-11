@@ -11,11 +11,11 @@ import {
 
 export default function GetStarted({navigation}) {
   const btns = [
-    // {title: 'Morning', nav: () => navigation.navigate('Morning')},
-    // {title: 'Evening', nav: () => navigation.navigate('Evening')},
-    // {title: 'Attandence', nav: () => navigation.navigate('Attendance')},
-    {title: 'Sign Up', nav: () => navigation.navigate('Signup')},
-    {title: 'Login', nav: () => navigation.navigate('Login')},
+    {title: 'Morning', nav: () => navigation.navigate('Morning')},
+    {title: 'Evening', nav: () => navigation.navigate('Evening')},
+    {title: 'Attandence', nav: () => navigation.navigate('Attendance')},
+    // {title: 'Sign Up', nav: () => navigation.navigate('Signup')},
+    // {title: 'Login', nav: () => navigation.navigate('Login')},
   ];
 
   const [color, setColor] = useState(false);

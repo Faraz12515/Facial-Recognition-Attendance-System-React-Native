@@ -9,11 +9,15 @@ import {
   ScrollView,
   TouchableOpacity,
   ActivityIndicator,
+  MaskedViewComponent,
+  Alert,
 } from 'react-native';
+import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
+import * as Actions from './../REDUX/Action/Actions';
 
-export default function Login({navigation}) {
+function Login({navigation, loginuser}) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userName, setUserName] = useState('');
@@ -28,19 +32,34 @@ export default function Login({navigation}) {
   // }, 1000);
 
   const SIGNIN = async () => {
+    if (!userName || !password) {
+      Alert.alert('Alert!', 'Please Enter all the Fields properly', [
+        {text: 'OK'},
+      ]);
+      return;
+    }
+
     let fd = new FormData();
     fd.append('email', userName);
     fd.append('password', password);
 
+    setIsLoggedIn(true);
+
     axios
       .post(LOGIN, fd)
       .then((res) => {
+        setIsLoggedIn(false);
         console.log(res.data);
         let myString = res.data.user_data;
         myString = JSON.parse(myString.replace(/'/g, '"'));
-        console.log(myString);
+        console.log('UserData:', myString);
+        loginuser(myString);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setIsLoggedIn(false);
+        console.log(err);
+        Alert.alert('Error!', 'Something Went Wrong', [{text: 'OK'}]);
+      });
   };
 
   return isLoading == true ? (
@@ -108,6 +127,20 @@ export default function Login({navigation}) {
   );
 }
 
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    loginuser: (data) => {
+      dispatch({type: Actions.LOGIN, payload: data});
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -131,13 +164,15 @@ const styles = StyleSheet.create({
   Button: {
     backgroundColor: '#00a14e',
     padding: 11,
-    marginTop: 30,
-    marginVertical: '3%',
+    // marginTop: 30,
+    marginVertical: '1%',
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
     elevation: 5,
-    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 25,
   },
   signup: {
     backgroundColor: '#00a14e',
@@ -146,7 +181,9 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '90%',
     elevation: 5,
-    borderRadius: 4,
+    borderWidth: 2,
+    borderColor: '#000',
+    borderRadius: 25,
   },
   ButtonText: {
     backgroundColor: 'red',
