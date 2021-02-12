@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
 
-    elevation: 5,
+    elevation: 10,
     borderRadius: 50,
   },
   ButtonText: {

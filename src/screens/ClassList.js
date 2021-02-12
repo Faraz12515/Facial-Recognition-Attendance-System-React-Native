@@ -11,43 +11,7 @@ import {
 export default function ClassList() {
   const listData = [
     {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
+      txt: 'Class Name',
     },
   ];
   return (

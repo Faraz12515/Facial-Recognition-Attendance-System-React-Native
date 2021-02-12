@@ -15,11 +15,7 @@ import {
 import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
-<<<<<<< HEAD
-import * as Actions from './../REDUX/Action/Actions';
-=======
 import AddClass from './AddClass';
->>>>>>> 5cc0a9a0ad3d0968c4130434de7ad06706359f13
 
 function Login({navigation, loginuser}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -158,8 +154,8 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   textInput: {
-    marginVertical: 16,
-    paddingVertical: 10,
+    marginVertical: 15,
+    paddingVertical: 15,
     color: '#535353',
 
     fontSize: 16,
@@ -171,14 +167,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#00a14e',
     padding: 11,
     // marginTop: 30,
-    marginVertical: '1%',
+    marginVertical: '8%',
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
-    borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 25,
+    elevation: 10,
+    // borderWidth: 2,
+    // borderColor: '#333',
+    borderRadius: 4,
   },
   signup: {
     backgroundColor: '#00a14e',
@@ -186,10 +182,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
-    borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 25,
+    // elevation: 10,
+    // borderWidth: 2,
+    // borderColor: '#000',
+    // borderRadius: 25,
   },
   ButtonText: {
     backgroundColor: 'red',

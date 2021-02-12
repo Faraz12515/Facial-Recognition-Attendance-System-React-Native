@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
+    elevation: 10,
     borderRadius: 4,
     // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'
