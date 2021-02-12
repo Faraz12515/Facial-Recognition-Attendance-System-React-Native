@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
@@ -11,12 +12,41 @@ import {
 } from 'react-native';
 
 export default function Attendance({navigation, route}) {
-  // const btns = [{title: 'TIME IN', nav: () => navigation.navigate('')}];
-
-  // const {type, title} = Details;
-
   const [color, setColor] = useState(false);
   const [courseData, setCourseData] = useState(null);
+  const [image, setImage] = useState(null);
+
+  //Select Image
+  const selectImage = async () => {
+    //Image Picker Code
+  };
+
+  //API Call For Mark Attendance
+  const markAttendace = async () => {
+    let fd = new FormData();
+
+    const Image = {
+      name: 'image.jpg',
+      type: 'image/jpg',
+      uri: image.uri,
+    };
+    fd.append('year', courseData.year);
+    fd.append('semester', courseData.semester);
+    fd.append('section', courseData.section);
+    fd.append('course', courseData.course);
+    fd.append('class_type', courseData.class_type);
+    fd.append('class_pic', courseData.Image);
+    fd.append('program', courseData.program);
+
+    axios
+      .post(ATTENDANCE, fd)
+      .then((res) => {
+        console.log(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     setCourseData(route.params.data);
@@ -39,13 +69,19 @@ export default function Attendance({navigation, route}) {
 
               alignSelf: 'center',
             }}
-            source={require('../../assets/user.png')}
+            source={image ? {uri: image.uri} : require('../../assets/user.png')}
           />
         </View>
         <View style={styles.ButtonView}>
-          <TouchableOpacity style={styles.Button}>
-            <Text style={styles.ButtonText}>Mark Attendance</Text>
-          </TouchableOpacity>
+          {image ? (
+            <TouchableOpacity onPress={markAttendace} style={styles.Button}>
+              <Text style={styles.ButtonText}>Mark</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={selectImage} style={styles.Button}>
+              <Text style={styles.ButtonText}>Open Camera For Attendance</Text>
+            </TouchableOpacity>
+          )}
 
           <View style={styles.TextView}>
             {courseData ? (
@@ -93,7 +129,12 @@ const styles = StyleSheet.create({
     // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'
   },
-  ButtonText: {color: 'white', fontSize: 20, fontWeight: 'bold'},
+  ButtonText: {
+    color: 'white',
+    fontSize: 14,
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
   TextView: {
     paddingTop: '5%',
     justifyContent: 'flex-start',
