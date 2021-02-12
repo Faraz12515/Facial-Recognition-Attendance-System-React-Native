@@ -33,6 +33,7 @@ export default function Attendance({navigation}) {
               width: 100,
               height: 100,
               resizeMode: 'contain',
+
               alignSelf: 'center',
             }}
             source={require('../../assets/user.png')}
