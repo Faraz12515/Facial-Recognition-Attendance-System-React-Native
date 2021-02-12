@@ -23,16 +23,19 @@ import {
   FirstYear,
   SecondYear,
   ThirdYear,
+  Register,
   FourthYear,
-  FirstAndSecondSemester,
+  Semesters,
   ThirdAndFourthSemester,
   FifthAndSixthSemester,
   SeventhAndEightSemester,
+  SemesterCourses,
 } from '../screens';
+import {connect} from 'react-redux';
 
 const Stack = createStackNavigator();
 
-export default function stackNavigator() {
+function StackNavigator(props) {
   return (
     <Stack.Navigator headerMode="none" initialRouteName={'Home'}>
       <Stack.Screen name="GetStarted" component={GetStarted} />
@@ -178,8 +181,8 @@ export default function stackNavigator() {
         }}
       />
       <Stack.Screen
-        name="FirstAndSecondSemester"
-        component={FirstAndSecondSemester}
+        name="Semesters"
+        component={Semesters}
         options={{
           title: ' 1st & 2nd Semester',
           headerStyle: {
@@ -313,8 +316,39 @@ export default function stackNavigator() {
         }}
       />
       <Stack.Screen
+        name="Register"
+        component={Register}
+        options={{
+          title: 'Theory',
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#222',
+          headerTitleStyle: {
+            fontWeight: 'normal',
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+      <Stack.Screen
         name="Lab"
         component={Lab}
+        options={{
+          title: 'Lab',
+          headerStyle: {
+            backgroundColor: '#fff',
+          },
+          headerTintColor: '#222',
+          headerTitleStyle: {
+            fontWeight: 'normal',
+          },
+          headerTitleAlign: 'center',
+        }}
+      />
+
+      <Stack.Screen
+        name="SemesterCourse"
+        component={SemesterCourses}
         options={{
           title: 'Lab',
           headerStyle: {
@@ -330,3 +364,11 @@ export default function stackNavigator() {
     </Stack.Navigator>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(StackNavigator);

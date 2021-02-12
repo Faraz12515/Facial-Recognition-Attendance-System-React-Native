@@ -8,11 +8,13 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import {connect} from 'react-redux';
+import * as Action from './../REDUX/Action/Actions';
 
-export default function Section({navigation}) {
+function Section({navigation, addSection}) {
   const btns = [
-    {title: 'Section A', nav: () => navigation.navigate('SectionA')},
-    {title: 'Section B', nav: () => navigation.navigate('SectionB')},
+    {title: 'Section A', nav: () => navigation.navigate('Section A')},
+    {title: 'Section B', nav: () => navigation.navigate('Section B')},
   ];
   return (
     <View style={styles.container}>
@@ -39,7 +41,13 @@ export default function Section({navigation}) {
         }}>
         {btns.map((v, i) => {
           return (
-            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
+            <TouchableOpacity
+              key={i}
+              style={styles.Button}
+              onPress={() => {
+                addSection(v.title);
+                navigation.navigate('SemesterCourse');
+              }}>
               <Text style={styles.ButtonText}>{v.title}</Text>
             </TouchableOpacity>
           );
@@ -48,6 +56,16 @@ export default function Section({navigation}) {
     </View>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addSection: (data) => {
+      dispatch({type: Action.SECTION, payload: data});
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Section);
 
 const styles = StyleSheet.create({
   container: {

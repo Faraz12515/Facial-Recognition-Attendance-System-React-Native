@@ -35,7 +35,7 @@ export default function FirstYear({navigation}) {
         }}>
         <TouchableOpacity
           style={styles.Button}
-          onPress={() => navigation.navigate('FirstAndSecondSemester')}>
+          onPress={() => navigation.navigate('Semesters')}>
           <Text style={styles.ButtonText}>1st Year</Text>
         </TouchableOpacity>
       </View>

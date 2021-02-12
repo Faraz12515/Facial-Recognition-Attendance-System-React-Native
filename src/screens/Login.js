@@ -15,11 +15,8 @@ import {
 import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
-<<<<<<< HEAD
 import * as Actions from './../REDUX/Action/Actions';
-=======
 import AddClass from './AddClass';
->>>>>>> 5cc0a9a0ad3d0968c4130434de7ad06706359f13
 
 function Login({navigation, loginuser}) {
   const [isLoading, setIsLoading] = useState(true);
@@ -42,6 +39,7 @@ function Login({navigation, loginuser}) {
       ]);
       return;
     }
+    // navigation.navigate('Addclass');
 
     let fd = new FormData();
     fd.append('email', userName);
@@ -58,6 +56,7 @@ function Login({navigation, loginuser}) {
         myString = JSON.parse(myString.replace(/'/g, '"'));
         console.log('UserData:', myString);
         loginuser(myString);
+        navigation.navigate('Addclass');
       })
       .catch((err) => {
         setIsLoggedIn(false);
@@ -110,9 +109,7 @@ function Login({navigation, loginuser}) {
         </View>
 
         <View style={{paddingTop: 20}}>
-          <TouchableOpacity
-            style={styles.Button}
-            onPress={() => navigation.navigate('Addclass')}>
+          <TouchableOpacity style={styles.Button} onPress={SIGNIN}>
             {isLoggedIn == true ? (
               <ActivityIndicator size="small" color="#fff" />
             ) : (

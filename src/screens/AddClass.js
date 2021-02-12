@@ -8,9 +8,10 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import {connect} from 'react-redux';
 import {ClassList} from '.';
 
-export default function AddClass({navigation}) {
+function AddClass({navigation, userData}) {
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#FEFEFE" /> */}
@@ -23,7 +24,7 @@ export default function AddClass({navigation}) {
             fontWeight: 'bold',
             paddingVertical: '8%',
           }}>
-          Sir Fawad Alam
+          {userData.name}
         </Text>
       </View>
       <ScrollView>
@@ -41,7 +42,7 @@ export default function AddClass({navigation}) {
       >
         <TouchableOpacity
           style={styles.Button}
-          onPress={() => navigation.navigate('Attendance')}>
+          onPress={() => navigation.navigate('Programs')}>
           <View style={{marginVertical: 15}}>
             <Text style={styles.ButtonText}>Add{'\n'}Class</Text>
           </View>
@@ -50,6 +51,14 @@ export default function AddClass({navigation}) {
     </View>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(AddClass);
 
 const styles = StyleSheet.create({
   container: {

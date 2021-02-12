@@ -14,7 +14,7 @@ import FirstYear from './FirstYear';
 import SecondYear from './SecondYear';
 import ThirdYear from './ThirdYear';
 import FourthYear from './FourthYear';
-import FirstAndSecondSemester from './FirstAndSecondSemester';
+import Semesters from './Semesters';
 import ThirdAndFourthSemester from './ThirdAndFourthSemester';
 import FifthAndSixthSemester from './FifthAndSixthSemester';
 import SeventhAndEightSemester from './SeventhAndEightSemester';
@@ -24,6 +24,8 @@ import Attendance from './Attendance';
 import Home from './Home';
 import AddClass from './AddClass';
 import ClassList from './ClassList';
+import SemesterCourses from './SemesterCourses';
+import Register from './Register';
 
 export {
   Home,
@@ -33,6 +35,7 @@ export {
   SignUp,
   Login,
   GetStarted,
+  Register,
   Morning,
   Evening,
   Programs,
@@ -48,7 +51,8 @@ export {
   SecondYear,
   ThirdYear,
   FourthYear,
-  FirstAndSecondSemester,
+  Semesters,
+  SemesterCourses,
   ThirdAndFourthSemester,
   FifthAndSixthSemester,
   SeventhAndEightSemester,

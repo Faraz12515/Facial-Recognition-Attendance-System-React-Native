@@ -13,7 +13,7 @@ export default function CS({navigation}) {
   const btns = [
     {
       title: '1st & 2nd Semester',
-      nav: () => navigation.navigate('FirstAndSecondSemester'),
+      nav: () => navigation.navigate('Semesters'),
     },
     {
       title: '3rd & 4th Semester',

@@ -9,10 +9,14 @@ import {
   StatusBar,
 } from 'react-native';
 
-export default function Course({navigation}) {
+import {connect} from 'react-redux';
+import * as Action from './../REDUX/Action/Actions';
+
+function Course({navigation, addClassType}) {
   const btns = [
     {title: 'Theory', nav: () => navigation.navigate('Theory')},
     {title: 'Lab', nav: () => navigation.navigate('Lab')},
+    {title: 'Both', nav: () => navigation.navigate('Lab')},
   ];
 
   return (
@@ -40,7 +44,13 @@ export default function Course({navigation}) {
         }}>
         {btns.map((v, i) => {
           return (
-            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
+            <TouchableOpacity
+              key={i}
+              style={styles.Button}
+              onPress={() => {
+                addClassType(v.title);
+                navigation.navigate('Register');
+              }}>
               <Text style={styles.ButtonText}>{v.title}</Text>
             </TouchableOpacity>
           );
@@ -49,6 +59,20 @@ export default function Course({navigation}) {
     </View>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {};
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addClassType: (data) => {
+      dispatch({type: Action.CLASS_TYPE, payload: data});
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Course);
 
 const styles = StyleSheet.create({
   container: {

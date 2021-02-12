@@ -7,70 +7,42 @@ import {
   ScrollView,
   TouchableOpacity,
 } from 'react-native';
+import {connect} from 'react-redux';
 
-export default function ClassList() {
-  const listData = [
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-    {
-      txt: 'Dog',
-    },
-  ];
+function ClassList({userData}) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {listData.map((v, i) => {
-          return (
-            <TouchableOpacity
-              key={i}
-              style={[
-                styles.List,
-                {marginBottom: i == listData.length - 1 ? 16 : 0},
-              ]}>
-              <View style={styles.textView}>
-                <Text style={styles.text}>{v.txt}</Text>
-              </View>
-            </TouchableOpacity>
-          );
-        })}
+        {userData.courses_assigned ? (
+          userData.courses_assigned.map((v, i) => {
+            return (
+              <TouchableOpacity
+                key={i + ''}
+                style={[styles.List, {marginBottom: 10}]}>
+                <View style={styles.textView}>
+                  <Text style={styles.text}>{v}</Text>
+                </View>
+              </TouchableOpacity>
+            );
+          })
+        ) : (
+          <View>
+            <Text style={{fontSize: 20, color: '#0000'}}>No Courses Found</Text>
+          </View>
+        )}
       </ScrollView>
     </View>
   );
 }
+
+const mapStateToProps = (state) => {
+  return {
+    userData: state.auth.user,
+  };
+};
+
+export default connect(mapStateToProps)(ClassList);
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

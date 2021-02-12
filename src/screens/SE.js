@@ -8,12 +8,14 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import {connect} from 'react-redux';
+import * as Actions from './../REDUX/Action/Actions';
 
-export default function SE({navigation}) {
+function SE({navigation, addYear}) {
   const btns = [
     {
       title: '1st Year',
-      nav: () => navigation.navigate('FirstAndSecondSemester'),
+      nav: () => navigation.navigate('Semesters'),
     },
     {
       title: '2nd Year',
@@ -53,7 +55,13 @@ export default function SE({navigation}) {
         }}>
         {btns.map((v, i) => {
           return (
-            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
+            <TouchableOpacity
+              key={i}
+              style={styles.Button}
+              onPress={() => {
+                addYear(v.title);
+                navigation.navigate('Semesters');
+              }}>
               <Text style={styles.ButtonText}>{v.title}</Text>
             </TouchableOpacity>
           );
@@ -62,6 +70,16 @@ export default function SE({navigation}) {
     </View>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addYear: (data) => {
+      dispatch({type: Actions.YEAR, payload: data});
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(SE);
 
 const styles = StyleSheet.create({
   container: {

@@ -2,7 +2,7 @@ import {act} from 'react-test-renderer';
 import * as Actions from './../Action/Actions';
 
 const initialState = {
-  user: {},
+  user: null,
 };
 
 export default function (state = initialState, action) {

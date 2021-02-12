@@ -8,8 +8,10 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
+import {connect} from 'react-redux';
+import * as Actions from './../REDUX/Action/Actions';
 
-export default function Programs({navigation}) {
+function Programs({navigation, addProgram}) {
   const btns = [
     {title: 'CS', nav: () => navigation.navigate('CS')},
     {title: 'SE', nav: () => navigation.navigate('SE')},
@@ -39,7 +41,13 @@ export default function Programs({navigation}) {
         }}>
         {btns.map((v, i) => {
           return (
-            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
+            <TouchableOpacity
+              onPress={() => {
+                addProgram(v.title);
+                navigation.navigate('SE');
+              }}
+              key={i}
+              style={styles.Button}>
               <Text style={styles.ButtonText}>{v.title}</Text>
             </TouchableOpacity>
           );
@@ -48,6 +56,16 @@ export default function Programs({navigation}) {
     </View>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    addProgram: (data) => {
+      dispatch({type: Actions.PROGRAM, payload: data});
+    },
+  };
+};
+
+export default connect(null, mapDispatchToProps)(Programs);
 
 const styles = StyleSheet.create({
   container: {
