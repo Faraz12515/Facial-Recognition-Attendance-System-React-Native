@@ -2,6 +2,7 @@
   package="com.fyp">
 
     <uses-permission android:name="android.permission.INTERNET" />
+      
 
     <application
       android:name=".MainApplication"
