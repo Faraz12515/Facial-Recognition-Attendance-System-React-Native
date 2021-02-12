@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e0e4c9',
   },
 
-  textInputView: {alignSelf: 'center', width: '90%'},
+  textInputView: {alignSelf: 'center', width: '90%', marginTop: 10},
   textInput: {
     marginVertical: 15,
     paddingVertical: 15,
