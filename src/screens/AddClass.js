@@ -11,7 +11,7 @@ import {
 import {connect} from 'react-redux';
 import {ClassList} from '.';
 
-function AddClass({navigation, userData}) {
+function AddClass({navigation, userData, route}) {
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#FEFEFE" /> */}
@@ -29,7 +29,7 @@ function AddClass({navigation, userData}) {
       </View>
       <ScrollView>
         <View style={{marginTop: 20}}>
-          <ClassList />
+          <ClassList navigation={navigation} />
         </View>
       </ScrollView>
       <View

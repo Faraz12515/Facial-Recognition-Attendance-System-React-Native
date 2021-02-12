@@ -15,5 +15,14 @@ export default function (state = initialState, action) {
     };
   }
 
+  if (action.type === Actions.UPDATE_USER) {
+    return {
+      ...state,
+      user: {
+        ...action.payload,
+      },
+    };
+  }
+
   return state;
 }

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,19 +7,22 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  ActivityIndicator,
 } from 'react-native';
 
-export default function Attendance({navigation}) {
-  const btns = [{title: 'TIME IN', nav: () => navigation.navigate('')}];
-  const Details = [
-    {type: 'Name: ', title: 'Syed Faraz Ali'},
-    {type: 'Designation: ', title: 'Trail Designaion'},
-    {type: 'Phone: ', title: '03152174051'},
-  ];
-  const {type, title} = Details;
+export default function Attendance({navigation, route}) {
+  // const btns = [{title: 'TIME IN', nav: () => navigation.navigate('')}];
+
+  // const {type, title} = Details;
 
   const [color, setColor] = useState(false);
+  const [courseData, setCourseData] = useState(null);
 
+  useEffect(() => {
+    setCourseData(route.params.data);
+  }, [courseData]);
+
+  console.log(courseData);
   return (
     <View style={styles.container}>
       <StatusBar barStyle="light-content" />
@@ -37,22 +40,21 @@ export default function Attendance({navigation}) {
         </View>
       </ScrollView>
       <View style={styles.ButtonView}>
-        {btns.map((v) => {
-          return (
-            <TouchableOpacity style={styles.Button} onPress={v.nav}>
-              <Text style={styles.ButtonText}>{v.title}</Text>
-            </TouchableOpacity>
-          );
-        })}
+        <TouchableOpacity style={styles.Button}>
+          <Text style={styles.ButtonText}>Mark Attendance</Text>
+        </TouchableOpacity>
+
         <View style={styles.TextView}>
-          {Details.map((v) => {
-            return (
-              <Text>
-                {v.type}
-                <Text>{v.title}</Text>
-              </Text>
-            );
-          })}
+          {courseData ? (
+            <View>
+              <Text>Course Name: {courseData.course}</Text>
+              <Text>Class Type: {courseData.class_type}</Text>
+              <Text>Semester: {courseData.semester}</Text>
+              <Text>Section: {courseData.section}</Text>
+            </View>
+          ) : (
+            <ActivityIndicator size="small" color={'#fff'} />
+          )}
         </View>
       </View>
     </View>
@@ -76,7 +78,7 @@ const styles = StyleSheet.create({
     marginVertical: '2.5%',
     alignItems: 'center',
     alignSelf: 'center',
-    width: '90%',
+    width: '100%',
     elevation: 5,
     borderRadius: 4,
     // backgroundColor:'#2B1FF5'

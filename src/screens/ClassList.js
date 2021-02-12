@@ -9,18 +9,33 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-function ClassList({userData}) {
+function ClassList({userData, navigation}) {
   return (
     <View style={styles.container}>
       <ScrollView>
-        {userData.courses_assigned ? (
-          userData.courses_assigned.map((v, i) => {
+        {userData.classes ? (
+          userData.classes.map((v, i) => {
             return (
               <TouchableOpacity
                 key={i + ''}
-                style={[styles.List, {marginBottom: 10}]}>
+                onPress={() => navigation.navigate('Attendance', {data: v})}
+                style={[
+                  styles.List,
+                  {
+                    marginBottom: 10,
+                    flexDirection: 'row',
+                    justifyContent: 'space-around',
+                    alignItems: 'center',
+                  },
+                ]}>
                 <View style={styles.textView}>
-                  <Text style={styles.text}>{v}</Text>
+                  <Text style={styles.text}>{v.program}</Text>
+                </View>
+                <View style={styles.textView}>
+                  <Text style={styles.text}>{v.course}</Text>
+                </View>
+                <View style={styles.textView}>
+                  <Text style={styles.text}>{v.semester}</Text>
                 </View>
               </TouchableOpacity>
             );

@@ -10,10 +10,11 @@ import {
   ScrollView,
   StatusBar,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import {connect} from 'react-redux';
 import {REGISTER_COURSE} from './../Constants/Global';
-import * as Action from './../Constants/Global';
+import * as Action from './../REDUX/Action/Actions';
 
 function Register({navigation, classData, teacher, updateUser}) {
   const [isLoading, setIsLoading] = useState(false);
@@ -40,6 +41,8 @@ function Register({navigation, classData, teacher, updateUser}) {
         myString = JSON.parse(myString);
         console.log('UserData:', myString);
         updateUser(myString);
+        ToastAndroid.show('Course Added SuccessFully', ToastAndroid.LONG);
+        navigation.navigate('Addclass');
       })
       .catch((err) => {
         console.log(err);
@@ -91,7 +94,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     updateUser: (data) => {
-      dispatch({action: Action.UPDATE_USER, payload: data});
+      dispatch({type: Action.UPDATE_USER, payload: data});
     },
   };
 };
