@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
   Button: {
     backgroundColor: '#00a14e',
     padding: 11,
-    marginVertical: '2.5%',
+    marginVertical: '4%',
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
+    elevation: 10,
     borderRadius: 4,
     // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'

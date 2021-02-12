@@ -15,7 +15,10 @@ import {
 import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
+<<<<<<< HEAD
 import * as Actions from './../REDUX/Action/Actions';
+=======
+>>>>>>> ba2943569173036a95e8893c7408f66ba030392e
 import AddClass from './AddClass';
 
 function Login({navigation, loginuser}) {
@@ -155,8 +158,8 @@ const styles = StyleSheet.create({
     width: '90%',
   },
   textInput: {
-    marginVertical: 16,
-    paddingVertical: 10,
+    marginVertical: 15,
+    paddingVertical: 15,
     color: '#535353',
 
     fontSize: 16,
@@ -168,14 +171,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#00a14e',
     padding: 11,
     // marginTop: 30,
-    marginVertical: '1%',
+    marginVertical: '8%',
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
-    borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 25,
+    elevation: 10,
+    // borderWidth: 2,
+    // borderColor: '#333',
+    borderRadius: 4,
   },
   signup: {
     backgroundColor: '#00a14e',
@@ -183,10 +186,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignSelf: 'center',
     width: '90%',
-    elevation: 5,
-    borderWidth: 2,
-    borderColor: '#000',
-    borderRadius: 25,
+    // elevation: 10,
+    // borderWidth: 2,
+    // borderColor: '#000',
+    // borderRadius: 25,
   },
   ButtonText: {
     backgroundColor: 'red',

@@ -20,7 +20,9 @@ function AddClass({navigation, userData, route}) {
           style={{
             textAlign: 'center',
             fontSize: 22,
-            color: '#222',
+
+            color: '#fff',
+            backgroundColor: '#00a14e',
             fontWeight: 'bold',
             paddingVertical: '8%',
           }}>
@@ -75,7 +77,7 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
 
-    elevation: 5,
+    elevation: 10,
     borderRadius: 50,
   },
   ButtonText: {

@@ -9,7 +9,11 @@ import {
   StatusBar,
 } from 'react-native';
 
-export default function SectionB({navigation}) {
+export default function FirstAndSecondSemester({navigation}) {
+  const btns = [
+    {title: '1st Semester', nav: () => navigation.navigate('Section')},
+    {title: '2nd Semester', nav: () => navigation.navigate('Section')},
+  ];
   return (
     <View style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#FEFEFE" />
@@ -33,11 +37,13 @@ export default function SectionB({navigation}) {
           alignSelf: 'center',
           width: '100%',
         }}>
-        <TouchableOpacity
-          style={styles.Button}
-          onPress={() => navigation.navigate('Course')}>
-          <Text style={styles.ButtonText}>Course</Text>
-        </TouchableOpacity>
+        {btns.map((v, i) => {
+          return (
+            <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
+              <Text style={styles.ButtonText}>{v.title}</Text>
+            </TouchableOpacity>
+          );
+        })}
       </View>
     </View>
   );
