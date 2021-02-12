@@ -41,50 +41,26 @@ export default function Attendance({navigation, route}) {
             }}
             source={require('../../assets/user.png')}
           />
-          <View style={styles.ButtonView}>
-            {btns.map((v, i) => {
-              return (
-                <TouchableOpacity key={i} style={styles.Button} onPress={v.nav}>
-                  <Text style={styles.ButtonText}>{v.title}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+        </View>
+        <View style={styles.ButtonView}>
+          <TouchableOpacity style={styles.Button}>
+            <Text style={styles.ButtonText}>Mark Attendance</Text>
+          </TouchableOpacity>
+
           <View style={styles.TextView}>
-            {Details.map((v, i) => {
-              return (
-                <Text key={i} style={styles.TextStyle}>
-                  {v.type}
-                  <Text style={{...styles.TextStyle, fontWeight: 'bold'}}>
-                    {v.title}
-                  </Text>
-                </Text>
-              );
-            })}
+            {courseData ? (
+              <View>
+                <Text>Course Name: {courseData.course}</Text>
+                <Text>Class Type: {courseData.class_type}</Text>
+                <Text>Semester: {courseData.semester}</Text>
+                <Text>Section: {courseData.section}</Text>
+              </View>
+            ) : (
+              <ActivityIndicator size="small" color={'#fff'} />
+            )}
           </View>
         </View>
       </ScrollView>
-<<<<<<< HEAD
-      <View style={styles.ButtonView}>
-        <TouchableOpacity style={styles.Button}>
-          <Text style={styles.ButtonText}>Mark Attendance</Text>
-        </TouchableOpacity>
-
-        <View style={styles.TextView}>
-          {courseData ? (
-            <View>
-              <Text>Course Name: {courseData.course}</Text>
-              <Text>Class Type: {courseData.class_type}</Text>
-              <Text>Semester: {courseData.semester}</Text>
-              <Text>Section: {courseData.section}</Text>
-            </View>
-          ) : (
-            <ActivityIndicator size="small" color={'#fff'} />
-          )}
-        </View>
-      </View>
-=======
->>>>>>> ba2943569173036a95e8893c7408f66ba030392e
     </View>
   );
 }
@@ -111,13 +87,8 @@ const styles = StyleSheet.create({
     padding: 11,
     alignItems: 'center',
     alignSelf: 'center',
-<<<<<<< HEAD
     width: '100%',
     elevation: 5,
-=======
-    width: '90%',
-    elevation: 10,
->>>>>>> ba2943569173036a95e8893c7408f66ba030392e
     borderRadius: 4,
     // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'

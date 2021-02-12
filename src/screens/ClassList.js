@@ -9,16 +9,7 @@ import {
 } from 'react-native';
 import {connect} from 'react-redux';
 
-<<<<<<< HEAD
 function ClassList({userData, navigation}) {
-=======
-export default function ClassList() {
-  const listData = [
-    {
-      txt: 'Class Name',
-    },
-  ];
->>>>>>> ba2943569173036a95e8893c7408f66ba030392e
   return (
     <View style={styles.container}>
       <ScrollView>

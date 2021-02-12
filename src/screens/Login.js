@@ -15,10 +15,7 @@ import {
 import {connect} from 'react-redux';
 
 import {LOGIN} from './../Constants/Global';
-<<<<<<< HEAD
 import * as Actions from './../REDUX/Action/Actions';
-=======
->>>>>>> ba2943569173036a95e8893c7408f66ba030392e
 import AddClass from './AddClass';
 
 function Login({navigation, loginuser}) {
