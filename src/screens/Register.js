@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React from 'react';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -18,6 +18,10 @@ import * as Action from './../REDUX/Action/Actions';
 
 function Register({navigation, classData, teacher, updateUser}) {
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    console.log('data', teacher, classData);
+  }, []);
 
   const RegisterCourse = async () => {
     setIsLoading(true);
