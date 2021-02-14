@@ -37,15 +37,13 @@ function Register({navigation, classData, teacher, updateUser}) {
       .then((res) => {
         setIsLoading(false);
         console.log(res.data);
-        let myString = res.data.user_data;
-        myString = JSON.parse(myString);
-        console.log('UserData:', myString);
-        updateUser(myString);
+        updateUser(res.data.user_data);
         ToastAndroid.show('Course Added SuccessFully', ToastAndroid.LONG);
         navigation.navigate('Addclass');
       })
       .catch((err) => {
         console.log(err);
+        setIsLoading(false);
       });
   };
 
