@@ -12,6 +12,8 @@ import {connect} from 'react-redux';
 import {ClassList} from '.';
 
 function AddClass({navigation, userData, route}) {
+  console.log('User Data', userData);
+
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="dark-content" backgroundColor="#FEFEFE" /> */}

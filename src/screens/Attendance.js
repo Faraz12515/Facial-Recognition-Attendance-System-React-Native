@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, Component} from 'react';
 import {
   StyleSheet,
   View,
@@ -10,6 +10,59 @@ import {
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
+import {RNCamera, FaceDetector} from 'react-native-camera';
+import ImagePicker from 'react-native-image-picker';
+
+class Camera extends Component {
+  takePicture = async () => {
+    if (this.camera) {
+      const options = {quality: 0.5, base64: true};
+      const data = await this.camera.takePictureAsync(options);
+      console.log(data.uri);
+    }
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <RNCamera
+          style={styles.preview}
+          type={RNCamera.Constants.Type.back}
+          flashMode={RNCamera.Constants.FlashMode.on}
+          androidCameraPermissionOptions={{
+            title: 'Permission to use camera',
+            message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}
+          androidRecordAudioPermissionOptions={{
+            title: 'Permission to use audio recording',
+            message: 'We need your permission to use your audio',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}>
+          {({camera, status, recordAudioPermissionStatus}) => {
+            // if (status !== 'READY') return <PendingView />;
+            return (
+              <View
+                style={{
+                  flex: 0,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() => this.takePicture(camera)}
+                  style={styles.capture}>
+                  <Text style={{fontSize: 14}}> SNAP </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        </RNCamera>
+      </View>
+    );
+  }
+}
 
 export default function Attendance({navigation, route}) {
   const [color, setColor] = useState(false);
@@ -52,6 +105,30 @@ export default function Attendance({navigation, route}) {
     setCourseData(route.params.data);
   }, [courseData]);
 
+  const launchCamera = () => {
+    let options = {
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
+    };
+    ImagePicker.launchCamera(options, (response) => {
+      console.log('Response = ', response);
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
+        alert(response.customButton);
+      } else {
+        const source = {uri: response.uri};
+        console.log('response', JSON.stringify(response));
+      }
+    });
+  };
+
   console.log(courseData);
   return (
     <View style={styles.container}>
@@ -78,7 +155,7 @@ export default function Attendance({navigation, route}) {
               <Text style={styles.ButtonText}>Mark</Text>
             </TouchableOpacity>
           ) : (
-            <TouchableOpacity onPress={selectImage} style={styles.Button}>
+            <TouchableOpacity onPress={launchCamera} style={styles.Button}>
               <Text style={styles.ButtonText}>Open Camera For Attendance</Text>
             </TouchableOpacity>
           )}
@@ -97,6 +174,7 @@ export default function Attendance({navigation, route}) {
           </View>
         </View>
       </ScrollView>
+      {/* <Camera /> */}
     </View>
   );
 }
@@ -141,4 +219,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   TextStyle: {fontSize: 16, paddingVertical: 5},
+  preview: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  capture: {
+    flex: 0,
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20,
+  },
 });

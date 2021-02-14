@@ -52,16 +52,16 @@ function Login({navigation, loginuser}) {
       .then((res) => {
         setIsLoggedIn(false);
         console.log(res.data);
-        let myString = res.data.user_data;
-        myString = JSON.parse(myString.replace(/'/g, '"'));
-        console.log('UserData:', myString);
-        loginuser(myString);
+        // let myString = res.data.user_data;
+        // myString = JSON.parse(myString.replace(/'/g, '"'));
+        // console.log('UserData:', myString);
+        loginuser(res.data.user_data);
         navigation.navigate('Addclass');
       })
       .catch((err) => {
+        Alert.alert('Error!', 'Something Went Wrong', [{text: 'OK'}]);
         setIsLoggedIn(false);
         console.log(err);
-        Alert.alert('Error!', 'Something Went Wrong', [{text: 'OK'}]);
       });
   };
 
