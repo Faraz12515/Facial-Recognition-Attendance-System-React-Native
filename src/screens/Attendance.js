@@ -10,59 +10,7 @@ import {
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-import {RNCamera, FaceDetector} from 'react-native-camera';
 import ImagePicker from 'react-native-image-picker';
-
-class Camera extends Component {
-  takePicture = async () => {
-    if (this.camera) {
-      const options = {quality: 0.5, base64: true};
-      const data = await this.camera.takePictureAsync(options);
-      console.log(data.uri);
-    }
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <RNCamera
-          style={styles.preview}
-          type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
-          androidCameraPermissionOptions={{
-            title: 'Permission to use camera',
-            message: 'We need your permission to use your camera',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}
-          androidRecordAudioPermissionOptions={{
-            title: 'Permission to use audio recording',
-            message: 'We need your permission to use your audio',
-            buttonPositive: 'Ok',
-            buttonNegative: 'Cancel',
-          }}>
-          {({camera, status, recordAudioPermissionStatus}) => {
-            // if (status !== 'READY') return <PendingView />;
-            return (
-              <View
-                style={{
-                  flex: 0,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <TouchableOpacity
-                  onPress={() => this.takePicture(camera)}
-                  style={styles.capture}>
-                  <Text style={{fontSize: 14}}> SNAP </Text>
-                </TouchableOpacity>
-              </View>
-            );
-          }}
-        </RNCamera>
-      </View>
-    );
-  }
-}
 
 export default function Attendance({navigation, route}) {
   const [color, setColor] = useState(false);
