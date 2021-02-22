@@ -6,8 +6,8 @@ import logger from 'redux-logger';
 import rootReducer from './Reducer/index';
 
 const persistedConfig = {
-  key: 'root',
-  storage: AsyncStorage,
+    key: 'root',
+    storage: AsyncStorage,
 };
 
 const persistedReducer = persistReducer(persistedConfig, rootReducer);
@@ -15,9 +15,9 @@ const persistedReducer = persistReducer(persistedConfig, rootReducer);
 const initialState = {};
 const middleware = [thunk, logger];
 const store = createStore(
-  persistedReducer,
-  initialState,
-  compose(applyMiddleware(...middleware)),
+    persistedReducer,
+    initialState,
+    compose(applyMiddleware(...middleware)),
 );
 
 const persistor = persistStore(store);
