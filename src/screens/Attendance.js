@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState, useEffect, PureComponent} from 'react';
 import {
   StyleSheet,
   View,
@@ -13,20 +13,7 @@ import {
 import {RNCamera, FaceDetector} from 'react-native-camera';
 // import ImagePicker from 'react-native-image-picker';
 
-class Camera extends Component {
-  takePicture = async () => {
-    console.log('is me aaya');
-    const options = {quality: 0.5, base64: true};
-    this.camera
-      .takePictureAsync(options)
-      .then((res) => {
-        console.log('Success', res);
-        const visionResp = RNTextDetector.detectFromUri(uri);
-        console.log('visionResp', visionResp);
-      })
-      .catch((e) => console.log('Aya Error aya', e));
-  };
-
+class Camera extends PureComponent {
   render() {
     return (
       <View style={styles.container}>
@@ -36,36 +23,32 @@ class Camera extends Component {
           }}
           style={styles.preview}
           type={RNCamera.Constants.Type.back}
-          flashMode={RNCamera.Constants.FlashMode.on}
           androidCameraPermissionOptions={{
             title: 'Permission to use camera',
             message: 'We need your permission to use your camera',
             buttonPositive: 'Ok',
             buttonNegative: 'Cancel',
-          }}>
-          {({camera, status}) => {
-            // if (status !== 'READY') return <PendingView />;
-            return (
-              <View
-                style={{
-                  flex: 0,
-                  flexDirection: 'row',
-                  justifyContent: 'center',
-                }}>
-                <TouchableOpacity
-                  onPress={() => (
-                    this.takePicture(camera), this.props.setShowCamera(false)
-                  )}
-                  style={styles.capture}>
-                  <Text style={{fontSize: 14}}> SNAP </Text>
-                </TouchableOpacity>
-              </View>
-            );
           }}
-        </RNCamera>
+        />
+        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
+          <TouchableOpacity
+            onPress={this.takePicture.bind(this)}
+            style={styles.capture}>
+            <Text style={{fontSize: 14}}> SNAP </Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
+
+  takePicture = async () => {
+    if (this.camera) {
+      const options = {quality: 0.5, base64: true};
+      const data = await this.camera.takePictureAsync(options);
+      console.log('Data->', data);
+      this.props.setShowCamera(false);
+    }
+  };
 }
 
 export default function Attendance({navigation, route}) {

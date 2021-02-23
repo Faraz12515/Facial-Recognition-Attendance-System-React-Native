@@ -1,4 +1,4 @@
-export const END_POINT = 'https://b58f83f2d935.ngrok.io';
+export const END_POINT = 'https://789e3d5add24.ngrok.io';
 // export const END_POINT = 'http://127.0.0.1:5000/';
 export const SIGN_UP = END_POINT + '/user_signup/';
 export const LOGIN = END_POINT + '/login/';
