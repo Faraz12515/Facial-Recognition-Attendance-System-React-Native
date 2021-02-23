@@ -10,12 +10,69 @@ import {
   StatusBar,
   ActivityIndicator,
 } from 'react-native';
-import ImagePicker from 'react-native-image-picker';
+import {RNCamera, FaceDetector} from 'react-native-camera';
+// import ImagePicker from 'react-native-image-picker';
+
+class Camera extends Component {
+  takePicture = async () => {
+    console.log('is me aaya');
+    const options = {quality: 0.5, base64: true};
+    this.camera
+      .takePictureAsync(options)
+      .then((res) => {
+        console.log('Success', res);
+        const visionResp = RNTextDetector.detectFromUri(uri);
+        console.log('visionResp', visionResp);
+      })
+      .catch((e) => console.log('Aya Error aya', e));
+  };
+
+  render() {
+    return (
+      <View style={styles.container}>
+        <RNCamera
+          ref={(ref) => {
+            this.camera = ref;
+          }}
+          style={styles.preview}
+          type={RNCamera.Constants.Type.back}
+          flashMode={RNCamera.Constants.FlashMode.on}
+          androidCameraPermissionOptions={{
+            title: 'Permission to use camera',
+            message: 'We need your permission to use your camera',
+            buttonPositive: 'Ok',
+            buttonNegative: 'Cancel',
+          }}>
+          {({camera, status}) => {
+            // if (status !== 'READY') return <PendingView />;
+            return (
+              <View
+                style={{
+                  flex: 0,
+                  flexDirection: 'row',
+                  justifyContent: 'center',
+                }}>
+                <TouchableOpacity
+                  onPress={() => (
+                    this.takePicture(camera), this.props.setShowCamera(false)
+                  )}
+                  style={styles.capture}>
+                  <Text style={{fontSize: 14}}> SNAP </Text>
+                </TouchableOpacity>
+              </View>
+            );
+          }}
+        </RNCamera>
+      </View>
+    );
+  }
+}
 
 export default function Attendance({navigation, route}) {
   const [color, setColor] = useState(false);
   const [courseData, setCourseData] = useState(null);
   const [image, setImage] = useState(null);
+  const [showCamera, setShowCamera] = useState(false);
 
   //Select Image
   const selectImage = async () => {
@@ -53,76 +110,63 @@ export default function Attendance({navigation, route}) {
     setCourseData(route.params.data);
   }, [courseData]);
 
-  const launchCamera = () => {
-    let options = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchCamera(options, (response) => {
-      console.log('Response = ', response);
-
-      if (response.didCancel) {
-        console.log('User cancelled image picker');
-      } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
-        alert(response.customButton);
-      } else {
-        const source = {uri: response.uri};
-        console.log('response', JSON.stringify(response));
-      }
-    });
-  };
-
   console.log(courseData);
   return (
     <View style={styles.container}>
       {/* <StatusBar barStyle="light-content" /> */}
-      <View>
-        <Text style={styles.heading}>Mark Attendance</Text>
-      </View>
-      <ScrollView>
-        <View style={{paddingTop: '30%'}}>
-          <Image
-            style={{
-              width: 100,
-              height: 100,
-              resizeMode: 'contain',
-
-              alignSelf: 'center',
-            }}
-            source={image ? {uri: image.uri} : require('../../assets/user.png')}
-          />
-        </View>
-        <View style={styles.ButtonView}>
-          {image ? (
-            <TouchableOpacity onPress={markAttendace} style={styles.Button}>
-              <Text style={styles.ButtonText}>Mark</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity onPress={launchCamera} style={styles.Button}>
-              <Text style={styles.ButtonText}>Open Camera For Attendance</Text>
-            </TouchableOpacity>
-          )}
-
-          <View style={styles.TextView}>
-            {courseData ? (
-              <View>
-                <Text>Course Name: {courseData.course}</Text>
-                <Text>Class Type: {courseData.class_type}</Text>
-                <Text>Semester: {courseData.semester}</Text>
-                <Text>Section: {courseData.section}</Text>
-              </View>
-            ) : (
-              <ActivityIndicator size="small" color={'#fff'} />
-            )}
+      {showCamera == true ? (
+        <Camera setShowCamera={setShowCamera} />
+      ) : (
+        <>
+          <View>
+            <Text style={styles.heading}>Mark Attendance</Text>
           </View>
-        </View>
-      </ScrollView>
-      {/* <Camera /> */}
+          <ScrollView>
+            <View style={{paddingTop: '30%'}}>
+              <Image
+                style={{
+                  width: 100,
+                  height: 100,
+                  resizeMode: 'contain',
+
+                  alignSelf: 'center',
+                }}
+                source={
+                  image ? {uri: image.uri} : require('../../assets/user.png')
+                }
+              />
+            </View>
+            <View style={styles.ButtonView}>
+              {image ? (
+                <TouchableOpacity onPress={markAttendace} style={styles.Button}>
+                  <Text style={styles.ButtonText}>Mark</Text>
+                </TouchableOpacity>
+              ) : (
+                <TouchableOpacity
+                  onPress={() => setShowCamera(true)}
+                  style={styles.Button}>
+                  <Text style={styles.ButtonText}>
+                    Open Camera For Attendance
+                  </Text>
+                </TouchableOpacity>
+              )}
+
+              <View style={styles.TextView}>
+                {courseData ? (
+                  <View>
+                    <Text>Course Name: {courseData.course}</Text>
+                    <Text>Class Type: {courseData.class_type}</Text>
+                    <Text>Semester: {courseData.semester}</Text>
+                    <Text>Section: {courseData.section}</Text>
+                  </View>
+                ) : (
+                  <ActivityIndicator size="small" color={'#fff'} />
+                )}
+              </View>
+            </View>
+          </ScrollView>
+        </>
+      )}
     </View>
   );
 }
