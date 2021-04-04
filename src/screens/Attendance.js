@@ -11,12 +11,13 @@ import {
   ActivityIndicator,
 } from 'react-native';
 import {RNCamera, FaceDetector} from 'react-native-camera';
+import {ScreenSize} from '../components/theme';
 // import ImagePicker from 'react-native-image-picker';
 
 class Camera extends PureComponent {
   render() {
     return (
-      <View style={styles.container}>
+      <View style={{...styles.container, backgroundColor: 'transparent'}}>
         <RNCamera
           ref={(ref) => {
             this.camera = ref;
@@ -30,11 +31,25 @@ class Camera extends PureComponent {
             buttonNegative: 'Cancel',
           }}
         />
-        <View style={{flex: 0, flexDirection: 'row', justifyContent: 'center'}}>
+        <View
+          style={{
+            flex: 0,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            backgroundColor: 'transparent',
+            position: 'absolute',
+            alignSelf: 'center',
+            bottom: 10,
+          }}>
           <TouchableOpacity
             onPress={this.takePicture.bind(this)}
             style={styles.capture}>
-            <Text style={{fontSize: 14}}> SNAP </Text>
+            <Text
+              style={{
+                fontSize: 14,
+              }}>
+              SNAP
+            </Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -101,53 +116,62 @@ export default function Attendance({navigation, route}) {
         <Camera setShowCamera={setShowCamera} />
       ) : (
         <>
-          <View>
+          <View style={{flex: 1}}>
             <Text style={styles.heading}>Mark Attendance</Text>
           </View>
-          <ScrollView>
-            <View style={{paddingTop: '30%'}}>
-              <Image
+          <View style={{flex: 8}}>
+            <ScrollView contentContainerStyle={{flex: 1}}>
+              <View
                 style={{
-                  width: 100,
-                  height: 100,
-                  resizeMode: 'contain',
+                  // height: ScreenSize.hp4,
+                  flex: 1,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  flex: 1,
+                }}>
+                <Image
+                  style={{
+                    width: ScreenSize.hp2,
+                    height: ScreenSize.hp2,
+                    resizeMode: 'contain',
 
-                  alignSelf: 'center',
-                }}
-                source={
-                  image ? {uri: image.uri} : require('../../assets/user.png')
-                }
-              />
-            </View>
-            <View style={styles.ButtonView}>
-              {image ? (
-                <TouchableOpacity onPress={markAttendace} style={styles.Button}>
-                  <Text style={styles.ButtonText}>Mark</Text>
-                </TouchableOpacity>
-              ) : (
-                <TouchableOpacity
-                  onPress={() => setShowCamera(true)}
-                  style={styles.Button}>
-                  <Text style={styles.ButtonText}>
-                    Open Camera For Attendance
-                  </Text>
-                </TouchableOpacity>
-              )}
-
-              <View style={styles.TextView}>
-                {courseData ? (
-                  <View>
-                    <Text>Course Name: {courseData.course}</Text>
-                    <Text>Class Type: {courseData.class_type}</Text>
-                    <Text>Semester: {courseData.semester}</Text>
-                    <Text>Section: {courseData.section}</Text>
-                  </View>
-                ) : (
-                  <ActivityIndicator size="small" color={'#fff'} />
-                )}
+                    alignSelf: 'center',
+                  }}
+                  source={
+                    image ? {uri: image.uri} : require('../../assets/user.png')
+                  }
+                />
               </View>
-            </View>
-          </ScrollView>
+              <View style={styles.ButtonView}>
+                {image ? (
+                  <TouchableOpacity
+                    onPress={markAttendace}
+                    style={styles.Button}>
+                    <Text style={styles.ButtonText}>Mark</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity
+                    onPress={() => setShowCamera(true)}
+                    style={styles.Button}>
+                    <Text style={styles.ButtonText}>Mark Attendance</Text>
+                  </TouchableOpacity>
+                )}
+
+                <View style={styles.TextView}>
+                  {courseData ? (
+                    <View>
+                      <Text>Course Name: {courseData.course}</Text>
+                      <Text>Class Type: {courseData.class_type}</Text>
+                      <Text>Semester: {courseData.semester}</Text>
+                      <Text>Section: {courseData.section}</Text>
+                    </View>
+                  ) : (
+                    <ActivityIndicator size="small" color={'#fff'} />
+                  )}
+                </View>
+              </View>
+            </ScrollView>
+          </View>
         </>
       )}
     </View>
@@ -168,6 +192,7 @@ const styles = StyleSheet.create({
     paddingVertical: '8%',
   },
   ButtonView: {
+    flex: 1,
     alignSelf: 'center',
     width: '50%',
   },
@@ -175,11 +200,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#00a14e',
     padding: 11,
     alignItems: 'center',
+    justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
     elevation: 5,
     borderRadius: 4,
-    // backgroundColor:'#2B1FF5'
+    flex: 1, // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'
   },
   ButtonText: {
@@ -189,8 +215,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   TextView: {
-    paddingTop: '5%',
-    justifyContent: 'flex-start',
+    flex: 10,
+    paddingTop: '10%',
+    justifyContent: 'center',
     alignItems: 'center',
   },
   TextStyle: {fontSize: 16, paddingVertical: 5},
@@ -201,7 +228,7 @@ const styles = StyleSheet.create({
   },
   capture: {
     flex: 0,
-    backgroundColor: '#fff',
+    backgroundColor: '#e0e4c9',
     borderRadius: 5,
     padding: 15,
     paddingHorizontal: 20,
