@@ -216,6 +216,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     paddingVertical: '8%',
     elevation: 10,
+    borderBottomRightRadius: 20,
+    borderBottomLeftRadius: 20,
   },
   ButtonView: {
     flex: 1,

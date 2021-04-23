@@ -28,6 +28,8 @@ function AddClass({navigation, userData, route}) {
             fontWeight: 'bold',
             paddingVertical: '8%',
             elevation: 10,
+            borderBottomRightRadius: 20,
+            borderBottomLeftRadius: 20,
           }}>
           {userData.name}
         </Text>
