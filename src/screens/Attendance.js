@@ -166,16 +166,28 @@ export default function Attendance({navigation, route}) {
                   {courseData ? (
                     <View>
                       <Text style={styles.TextStyle}>
-                        Course Name: {courseData.course}
+                        Course Name:{' '}
+                        <Text style={{...styles.TextStyle, fontWeight: 'bold'}}>
+                          {courseData.course}
+                        </Text>
                       </Text>
                       <Text style={styles.TextStyle}>
-                        Class Type: {courseData.class_type}
+                        Class Type:{' '}
+                        <Text style={{...styles.TextStyle, fontWeight: 'bold'}}>
+                          {courseData.class_type}
+                        </Text>
                       </Text>
                       <Text style={styles.TextStyle}>
-                        Semester: {courseData.semester}
+                        Semester:{' '}
+                        <Text style={{...styles.TextStyle, fontWeight: 'bold'}}>
+                          {courseData.semester}
+                        </Text>
                       </Text>
                       <Text style={styles.TextStyle}>
-                        Section: {courseData.section}
+                        Section:{' '}
+                        <Text style={{...styles.TextStyle, fontWeight: 'bold'}}>
+                          {courseData.section}
+                        </Text>
                       </Text>
                     </View>
                   ) : (
