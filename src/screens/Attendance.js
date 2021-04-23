@@ -215,6 +215,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#00a14e',
     fontWeight: 'bold',
     paddingVertical: '8%',
+    elevation: 10,
   },
   ButtonView: {
     flex: 1,
