@@ -63,6 +63,11 @@ class Camera extends PureComponent {
       console.log('Data->', data);
       this.props.setShowCamera(false);
     }
+    const file = {
+      uri: response.uri,
+      name: response.fileName,
+      type: 'image/jpeg',
+    };
   };
 }
 
@@ -86,6 +91,7 @@ export default function Attendance({navigation, route}) {
       type: 'image/jpg',
       uri: image.uri,
     };
+
     fd.append('year', courseData.year);
     fd.append('semester', courseData.semester);
     fd.append('section', courseData.section);
@@ -119,7 +125,7 @@ export default function Attendance({navigation, route}) {
           <View style={{flex: 1}}>
             <Text style={styles.heading}>Mark Attendance</Text>
           </View>
-          <View style={{flex: 8}}>
+          <View style={{flex: 4}}>
             <ScrollView contentContainerStyle={{flex: 1}}>
               <View
                 style={{
@@ -134,7 +140,6 @@ export default function Attendance({navigation, route}) {
                     width: ScreenSize.hp2,
                     height: ScreenSize.hp2,
                     resizeMode: 'contain',
-
                     alignSelf: 'center',
                   }}
                   source={
@@ -142,7 +147,7 @@ export default function Attendance({navigation, route}) {
                   }
                 />
               </View>
-              <View style={styles.ButtonView}>
+              <View style={{...styles.ButtonView, flex: 3}}>
                 {image ? (
                   <TouchableOpacity
                     onPress={markAttendace}
@@ -160,10 +165,18 @@ export default function Attendance({navigation, route}) {
                 <View style={styles.TextView}>
                   {courseData ? (
                     <View>
-                      <Text>Course Name: {courseData.course}</Text>
-                      <Text>Class Type: {courseData.class_type}</Text>
-                      <Text>Semester: {courseData.semester}</Text>
-                      <Text>Section: {courseData.section}</Text>
+                      <Text style={styles.TextStyle}>
+                        Course Name: {courseData.course}
+                      </Text>
+                      <Text style={styles.TextStyle}>
+                        Class Type: {courseData.class_type}
+                      </Text>
+                      <Text style={styles.TextStyle}>
+                        Semester: {courseData.semester}
+                      </Text>
+                      <Text style={styles.TextStyle}>
+                        Section: {courseData.section}
+                      </Text>
                     </View>
                   ) : (
                     <ActivityIndicator size="small" color={'#fff'} />
@@ -217,7 +230,7 @@ const styles = StyleSheet.create({
   TextView: {
     flex: 10,
     paddingTop: '10%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     alignItems: 'center',
   },
   TextStyle: {fontSize: 16, paddingVertical: 5},

@@ -12,8 +12,9 @@ import {
   MaskedViewComponent,
   Alert,
 } from 'react-native';
-import {connect} from 'react-redux';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 
+import {connect} from 'react-redux';
 import {LOGIN} from './../Constants/Global';
 import * as Actions from './../REDUX/Action/Actions';
 import AddClass from './AddClass';
