@@ -67,7 +67,7 @@ class Camera extends PureComponent {
     }
     const file = {
       uri: data.uri,
-      name: 'class_pic',
+      name: 'class_pic.jpg',
       type: 'image/jpeg',
     };
     console.log('File To be sent', file);
@@ -108,7 +108,7 @@ export default function Attendance({navigation, route}) {
         setLoading(false);
         Alert.alert('Success', 'Your Attendance has been marked', [
           {text: 'Cancel'},
-          {text: 'View Attendance List'},
+          {text: 'View Attendance List', onPress: () => navigation.goBack()},
         ]);
       })
       .catch((err) => {
