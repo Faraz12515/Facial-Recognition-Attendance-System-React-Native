@@ -9,9 +9,11 @@ import {
   ScrollView,
   StatusBar,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import {RNCamera, FaceDetector} from 'react-native-camera';
 import {ScreenSize} from '../components/theme';
+import {ATTENDANCE} from '../Constants/Global';
 // import ImagePicker from 'react-native-image-picker';
 
 class Camera extends PureComponent {
@@ -59,15 +61,17 @@ class Camera extends PureComponent {
   takePicture = async () => {
     if (this.camera) {
       const options = {quality: 0.5, base64: true};
-      const data = await this.camera.takePictureAsync(options);
+      var data = await this.camera.takePictureAsync(options);
       console.log('Data->', data);
       this.props.setShowCamera(false);
     }
     const file = {
-      uri: response.uri,
-      name: response.fileName,
+      uri: data.uri,
+      name: 'class_pic',
       type: 'image/jpeg',
     };
+    console.log('File To be sent', file);
+    this.props.setImage(file);
   };
 }
 
@@ -86,24 +90,22 @@ export default function Attendance({navigation, route}) {
   const markAttendace = async () => {
     let fd = new FormData();
 
-    const Image = {
-      name: 'image.jpg',
-      type: 'image/jpg',
-      uri: image.uri,
-    };
-
     fd.append('year', courseData.year);
     fd.append('semester', courseData.semester);
     fd.append('section', courseData.section);
     fd.append('course', courseData.course);
     fd.append('class_type', courseData.class_type);
-    fd.append('class_pic', courseData.Image);
+    fd.append('class_pic', image);
     fd.append('program', courseData.program);
 
     axios
       .post(ATTENDANCE, fd)
       .then((res) => {
         console.log(res.data);
+        Alert.alert('Success', 'Your Attendance has been marked', [
+          {text: 'Cancel'},
+          {text: 'View Attendance List'},
+        ]);
       })
       .catch((err) => {
         console.log(err);
@@ -117,9 +119,8 @@ export default function Attendance({navigation, route}) {
   console.log(courseData);
   return (
     <View style={styles.container}>
-      {/* <StatusBar barStyle="light-content" /> */}
       {showCamera == true ? (
-        <Camera setShowCamera={setShowCamera} />
+        <Camera setShowCamera={setShowCamera} setImage={setImage} />
       ) : (
         <>
           <View style={{flex: 1}}>
@@ -137,6 +138,7 @@ export default function Attendance({navigation, route}) {
                 }}>
                 <Image
                   style={{
+                    borderRadius: 20,
                     width: ScreenSize.hp2,
                     height: ScreenSize.hp2,
                     resizeMode: 'contain',
@@ -147,7 +149,7 @@ export default function Attendance({navigation, route}) {
                   }
                 />
               </View>
-              <View style={{...styles.ButtonView, flex: 3}}>
+              <View style={{...styles.ButtonView, flex: 3, marginTop: 20}}>
                 {image ? (
                   <TouchableOpacity
                     onPress={markAttendace}

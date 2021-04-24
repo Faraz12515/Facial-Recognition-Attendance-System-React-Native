@@ -6,3 +6,4 @@ export const SECTION = 'SECTION';
 export const COURSE = 'COURSE';
 export const CLASS_TYPE = 'CLASS_TYPE';
 export const UPDATE_USER = 'UPDATE_USER';
+export const SET_IMAGE = 'SET_IMAGE';

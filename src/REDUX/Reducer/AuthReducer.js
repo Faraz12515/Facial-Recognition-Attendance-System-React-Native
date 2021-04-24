@@ -1,4 +1,3 @@
-import {act} from 'react-test-renderer';
 import * as Actions from './../Action/Actions';
 
 const initialState = {
