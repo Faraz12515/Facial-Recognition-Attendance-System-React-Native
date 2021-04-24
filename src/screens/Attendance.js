@@ -80,6 +80,7 @@ export default function Attendance({navigation, route}) {
   const [courseData, setCourseData] = useState(null);
   const [image, setImage] = useState(null);
   const [showCamera, setShowCamera] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   //Select Image
   const selectImage = async () => {
@@ -98,16 +99,21 @@ export default function Attendance({navigation, route}) {
     fd.append('class_pic', image);
     fd.append('program', courseData.program);
 
+    setLoading(true);
+
     axios
       .post(ATTENDANCE, fd)
       .then((res) => {
         console.log(res.data);
+        setLoading(false);
         Alert.alert('Success', 'Your Attendance has been marked', [
           {text: 'Cancel'},
           {text: 'View Attendance List'},
         ]);
       })
       .catch((err) => {
+        setLoading(false);
+        Alert.alert('Error', 'Error While Uploading Image');
         console.log(err);
       });
   };
@@ -153,7 +159,11 @@ export default function Attendance({navigation, route}) {
                   <TouchableOpacity
                     onPress={markAttendace}
                     style={styles.Button}>
-                    <Text style={styles.ButtonText}>Mark</Text>
+                    {loading ? (
+                      <ActivityIndicator size="small" color="#fff" />
+                    ) : (
+                      <Text style={styles.ButtonText}>Mark</Text>
+                    )}
                   </TouchableOpacity>
                 ) : (
                   <TouchableOpacity
