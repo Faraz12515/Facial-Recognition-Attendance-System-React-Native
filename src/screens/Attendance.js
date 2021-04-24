@@ -132,7 +132,7 @@ export default function Attendance({navigation, route}) {
           <View style={{flex: 1}}>
             <Text style={styles.heading}>Mark Attendance</Text>
           </View>
-          <View style={{flex: 4}}>
+          <View style={{flex: 5}}>
             <ScrollView contentContainerStyle={{flex: 1}}>
               <View
                 style={{
@@ -140,7 +140,6 @@ export default function Attendance({navigation, route}) {
                   flex: 1,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  flex: 1,
                 }}>
                 <Image
                   style={{
@@ -238,7 +237,7 @@ const styles = StyleSheet.create({
   },
   Button: {
     backgroundColor: '#00a14e',
-    padding: 11,
+    padding: 8,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
