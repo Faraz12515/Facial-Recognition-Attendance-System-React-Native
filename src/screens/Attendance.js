@@ -141,6 +141,7 @@ export default function Attendance({navigation, route}) {
                     height: ScreenSize.hp2,
                     resizeMode: 'contain',
                     alignSelf: 'center',
+                    borderRadius: 50,
                   }}
                   source={
                     image ? {uri: image.uri} : require('../../assets/user.png')
