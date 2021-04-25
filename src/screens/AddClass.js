@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   View,
@@ -7,12 +7,38 @@ import {
   TouchableOpacity,
   ScrollView,
   StatusBar,
+  BackHandler,
+  Alert,
 } from 'react-native';
+import {useIsFocused} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {ClassList} from '.';
 
 function AddClass({navigation, userData, route}) {
   console.log('User Data', userData);
+  const isFocused = useIsFocused();
+
+  useEffect(() => {
+    console.log(isFocused);
+    if (isFocused) {
+      BackHandler.addEventListener('hardwareBackPress', backAction);
+    }
+
+    return () =>
+      BackHandler.removeEventListener('hardwareBackPress', backAction);
+  }, [isFocused]);
+
+  const backAction = () => {
+    Alert.alert('Hold on!', 'Are you sure you want to Exit?', [
+      {
+        text: 'Cancel',
+        onPress: () => null,
+        style: 'cancel',
+      },
+      {text: 'YES', onPress: () => BackHandler.exitApp()},
+    ]);
+    return true;
+  };
 
   return (
     <View style={styles.container}>
