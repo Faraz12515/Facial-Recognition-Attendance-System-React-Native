@@ -182,6 +182,7 @@ android {
 }
 
 dependencies {
+    compile project(':react-native-html-to-pdf')
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules

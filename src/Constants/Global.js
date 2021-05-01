@@ -1,4 +1,4 @@
-export const BASE_URL = 'http://5258424ee7f1.ngrok.io';
+export const BASE_URL = 'http://83982fe59fd6.ngrok.io';
 // export const BASE_URL = 'http://127.0.0.1:5000/';
 export const SIGN_UP = BASE_URL + '/user_signup/';
 export const LOGIN = BASE_URL + '/login/';

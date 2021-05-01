@@ -1,7 +1,7 @@
 import * as Actions from './../Action/Actions';
 
 const initialState = {
-  iamge: null,
+  Attendance: null,
 };
 
 export default function (state = initialState, action) {
@@ -9,7 +9,7 @@ export default function (state = initialState, action) {
   if (type === Actions.SET_IMAGE) {
     return {
       ...state,
-      image: paylaod,
+      Attendance: paylaod,
     };
   }
 

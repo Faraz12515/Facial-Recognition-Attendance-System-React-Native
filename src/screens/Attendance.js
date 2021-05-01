@@ -14,6 +14,7 @@ import {
 import {RNCamera, FaceDetector} from 'react-native-camera';
 import {ScreenSize} from '../components/theme';
 import {ATTENDANCE} from '../Constants/Global';
+import RNHTMLtoPDF from 'react-native-html-to-pdf';
 // import ImagePicker from 'react-native-image-picker';
 
 class Camera extends PureComponent {
@@ -82,11 +83,6 @@ export default function Attendance({navigation, route}) {
   const [showCamera, setShowCamera] = useState(false);
   const [loading, setLoading] = useState(false);
 
-  //Select Image
-  const selectImage = async () => {
-    //Image Picker Code
-  };
-
   //API Call For Mark Attendance
   const markAttendace = async () => {
     let fd = new FormData();
@@ -104,7 +100,7 @@ export default function Attendance({navigation, route}) {
     axios
       .post(ATTENDANCE, fd)
       .then((res) => {
-        console.log(res.data);
+        console.log(res.data.attendance_sheet);
         setLoading(false);
         Alert.alert('Success', 'Your Attendance has been marked', [
           {text: 'Cancel'},
@@ -121,6 +117,18 @@ export default function Attendance({navigation, route}) {
   useEffect(() => {
     setCourseData(route.params.data);
   }, [courseData]);
+
+  const pdfCreator = async (data) => {
+    let options = {
+      html: '<h1>PDF TEST</h1>',
+      fileName: 'AttendanceSheet',
+      // directory: 'Documents',
+    };
+
+    let file = await RNHTMLtoPDF.convert(options);
+    console.log(file.filePath);
+    // alert(file.filePath);
+  };
 
   console.log(courseData);
   return (
@@ -200,6 +208,11 @@ export default function Attendance({navigation, route}) {
                           {courseData.section}
                         </Text>
                       </Text>
+                      <TouchableOpacity
+                        onPress={pdfCreator}
+                        style={styles.Button}>
+                        <Text style={styles.ButtonText}>Attendance Sheet</Text>
+                      </TouchableOpacity>
                     </View>
                   ) : (
                     <ActivityIndicator size="small" color={'#fff'} />
@@ -238,13 +251,15 @@ const styles = StyleSheet.create({
   Button: {
     backgroundColor: '#00a14e',
     padding: 8,
+
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'center',
     width: '100%',
     elevation: 5,
     borderRadius: 4,
-    flex: 1, // backgroundColor:'#2B1FF5'
+    marginTop: 10,
+    // flex: 1, // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'
   },
   ButtonText: {

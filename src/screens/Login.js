@@ -22,8 +22,8 @@ import AddClass from './AddClass';
 function Login({navigation, loginuser}) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('nq73399@gmail.com');
+  const [password, setPassword] = useState('123456');
 
   setTimeout(() => {
     setIsLoading(false);
