@@ -15,6 +15,7 @@ import {RNCamera, FaceDetector} from 'react-native-camera';
 import {ScreenSize} from '../components/theme';
 import {ATTENDANCE} from '../Constants/Global';
 import RNHTMLtoPDF from 'react-native-html-to-pdf';
+import FileViewer from 'react-native-file-viewer';
 // import ImagePicker from 'react-native-image-picker';
 
 class Camera extends PureComponent {
@@ -82,6 +83,7 @@ export default function Attendance({navigation, route}) {
   const [image, setImage] = useState(null);
   const [showCamera, setShowCamera] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [attendance, setAttendance] = useState(null);
 
   //API Call For Mark Attendance
   const markAttendace = async () => {
@@ -102,10 +104,11 @@ export default function Attendance({navigation, route}) {
       .then((res) => {
         console.log(res.data.attendance_sheet);
         setLoading(false);
-        Alert.alert('Success', 'Your Attendance has been marked', [
-          {text: 'Cancel'},
-          {text: 'View Attendance List', onPress: () => navigation.goBack()},
-        ]);
+        setAttendance(res.data.attendance_sheet);
+        // Alert.alert('Success', 'Your Attendance has been marked', [
+        //   {text: 'Cancel'},
+        //   {text: 'View Attendance List', onPress: () => navigation.goBack()},
+        // ]);
       })
       .catch((err) => {
         setLoading(false);
@@ -120,14 +123,61 @@ export default function Attendance({navigation, route}) {
 
   const pdfCreator = async (data) => {
     let options = {
-      html: '<h1>PDF TEST</h1>',
-      fileName: 'AttendanceSheet',
-      // directory: 'Documents',
+      html: `
+      <h1 style="text-align: center; text-decoration: underline;">Attendance Sheet ${new Date().toDateString()}</h1>
+      <h3 style="text-align: center; text-decoration: underline;">Course Name ${
+        courseData.course
+      } (Section ${courseData.section})</h3>
+
+      <table id="customers" style="font-family: Arial, Helvetica, sans-serif;
+      border-collapse: collapse;
+      width: 100%;">
+  <tr>
+    <th style="border: 1px solid #ddd;  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+  padding: 8px;">Name</th>
+    
+    <th style="border: 1px solid #ddd;  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: center;
+  background-color: #04AA6D;
+  color: white;
+  padding: 8px;">Attendance</th>
+  </tr>
+  
+  ${attendance?.map((val, ind) => {
+    return `<tr style="text-align: center;">
+    <td style="border: 1px solid #ddd;
+  padding: 8px;">${val.student}</td>
+   
+    <td style="border: 1px solid #ddd;
+  padding: 8px;">${val.status}</td>
+  </tr>`;
+  })}
+ 
+</table>
+
+      
+      `,
+      fileName: `AttendanceSheet ${courseData?.course} ${
+        courseData?.section
+      } ${new Date().toDateString()} `,
     };
 
     let file = await RNHTMLtoPDF.convert(options);
-    console.log(file.filePath);
+    // console.log(file.filePath);
     // alert(file.filePath);
+    FileViewer.open(file.filePath)
+      .then(() => {
+        console.log('file viewer: SUCCESS');
+      })
+      .catch((e) => {
+        console.log('file viewer: ERROR');
+        console.log('e -> ', e);
+      });
   };
 
   console.log(courseData);
@@ -208,11 +258,15 @@ export default function Attendance({navigation, route}) {
                           {courseData.section}
                         </Text>
                       </Text>
-                      <TouchableOpacity
-                        onPress={pdfCreator}
-                        style={styles.Button}>
-                        <Text style={styles.ButtonText}>Attendance Sheet</Text>
-                      </TouchableOpacity>
+                      {attendance !== null && (
+                        <TouchableOpacity
+                          onPress={pdfCreator}
+                          style={styles.Button}>
+                          <Text style={styles.ButtonText}>
+                            Attendance Sheet
+                          </Text>
+                        </TouchableOpacity>
+                      )}
                     </View>
                   ) : (
                     <ActivityIndicator size="small" color={'#fff'} />
