@@ -21,6 +21,7 @@ import SeventhAndEightSemester from './SeventhAndEightSemester';
 import SignUp from './SignUp';
 import Login from './Login';
 import Attendance from './Attendance';
+import AddStudent from './AddStudent';
 import Home from './Home';
 import AddClass from './AddClass';
 import ClassList from './ClassList';
@@ -32,6 +33,7 @@ export {
   AddClass,
   ClassList,
   Attendance,
+  AddStudent,
   SignUp,
   Login,
   GetStarted,

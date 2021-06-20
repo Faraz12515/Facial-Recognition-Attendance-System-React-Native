@@ -105,10 +105,6 @@ export default function Attendance({navigation, route}) {
         console.log(res.data.attendance_sheet);
         setLoading(false);
         setAttendance(res.data.attendance_sheet);
-        // Alert.alert('Success', 'Your Attendance has been marked', [
-        //   {text: 'Cancel'},
-        //   {text: 'View Attendance List', onPress: () => navigation.goBack()},
-        // ]);
       })
       .catch((err) => {
         setLoading(false);
@@ -277,6 +273,13 @@ export default function Attendance({navigation, route}) {
           </View>
         </>
       )}
+
+      <TouchableOpacity
+        style={styles.addStudentButton}
+        onPress={() => navigation?.navigate('AddStudent', {data: courseData})}>
+        <Text style={styles.addStudentButtonText}>Add</Text>
+        <Text style={styles.addStudentButtonText}>Student</Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -315,6 +318,21 @@ const styles = StyleSheet.create({
     marginTop: 10,
     // flex: 1, // backgroundColor:'#2B1FF5'
     // backgroundColor:'#0CEAFF'
+  },
+  addStudentButton: {
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    borderRadius: 70,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#00a14e',
+  },
+  addStudentButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   ButtonText: {
     color: 'white',

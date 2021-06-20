@@ -30,6 +30,7 @@ import {
   FifthAndSixthSemester,
   SeventhAndEightSemester,
   SemesterCourses,
+  AddStudent,
 } from '../screens';
 import {connect} from 'react-redux';
 
@@ -42,6 +43,7 @@ function StackNavigator(props) {
       <Stack.Screen name="Addclass" component={AddClass} />
       <Stack.Screen name="Classlist" component={ClassList} />
       <Stack.Screen name="Attendance" component={Attendance} />
+      <Stack.Screen name="AddStudent" component={AddStudent} />
       <Stack.Screen name="Signup" component={SignUp} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen

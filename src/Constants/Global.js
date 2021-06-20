@@ -4,3 +4,4 @@ export const SIGN_UP = BASE_URL + '/user_signup/';
 export const LOGIN = BASE_URL + '/login/';
 export const REGISTER_COURSE = BASE_URL + '/add_class/';
 export const ATTENDANCE = BASE_URL + '/mark_attendance/';
+export const ADD_STUDENT = BASE_URL + '/add_student/';
